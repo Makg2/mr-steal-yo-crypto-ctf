@@ -29,6 +29,8 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  let exp = await ethers.getContractFactory('exp')
+  await exp.connect(attacker).deploy(flatLaunchpeg.address)
 
 });
 
